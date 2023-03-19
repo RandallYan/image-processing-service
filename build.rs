@@ -9,4 +9,3 @@ fn main() -> Result<()> {
         .out_dir(proto_root)
         .compile_protos(&proto_files, &[proto_root])
 }
-

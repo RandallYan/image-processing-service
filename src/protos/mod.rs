@@ -4,7 +4,7 @@ pub mod image_processing;
 mod tests {
 
     use crate::protos::image_processing::*;
-        #[test]
+    #[test]
     fn test_resize_spec() {
         let resize_type = resize_spec::ResizeType::Normal;
         let resize_spec = ResizeSpec {
@@ -16,6 +16,9 @@ mod tests {
         assert_eq!(resize_spec.width, 100);
         assert_eq!(resize_spec.height, 100);
         assert_eq!(resize_spec.rtype, resize_spec::ResizeType::Normal as i32);
-        assert_eq!(resize_spec.filter, resize_spec::SampleFilter::Gaussian as i32);
+        assert_eq!(
+            resize_spec.filter,
+            resize_spec::SampleFilter::Gaussian as i32
+        );
     }
 }

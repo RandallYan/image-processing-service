@@ -1,5 +1,8 @@
-
-use base64::{Engine as _, engine::{self, general_purpose}, alphabet};
+use base64::{
+    alphabet,
+    engine::{self, general_purpose},
+    Engine as _,
+};
 use photon_rs::transform::SamplingFilter;
 use prost::Message;
 use protos::image_processing::*;
@@ -10,7 +13,7 @@ fn main() {
     println!("Hello, world!");
 }
 const CUSTOM_ENGINE: engine::GeneralPurpose =
-engine::GeneralPurpose::new(&alphabet::URL_SAFE, general_purpose::NO_PAD);
+    engine::GeneralPurpose::new(&alphabet::URL_SAFE, general_purpose::NO_PAD);
 
 impl ImageSpec {
     pub fn new(specs: Vec<Spec>) -> Self {
@@ -50,38 +53,44 @@ impl From<resize_spec::SampleFilter> for SamplingFilter {
 #[cfg(test)]
 mod tests {
     use super::*;
-    
+
     #[test]
     fn test_image_spec_encoding_decoding() {
         // Create a new ImageSpec with some dummy Spec values
         let specs = vec![
-            Spec{
+            Spec {
                 index: 0,
-                spec: Some(ImageProcessingSpec{
-                    processing_spec: Some(image_processing_spec::ProcessingSpec::ResizeSpec(ResizeSpec{
-                        width: 100,
-                        height: 100,
-                        rtype: resize_spec::ResizeType::Normal as i32,
-                        filter: resize_spec::SampleFilter::Gaussian as i32,
-                    })),
-                })
+                spec: Some(ImageProcessingSpec {
+                    processing_spec: Some(image_processing_spec::ProcessingSpec::ResizeSpec(
+                        ResizeSpec {
+                            width: 100,
+                            height: 100,
+                            rtype: resize_spec::ResizeType::Normal as i32,
+                            filter: resize_spec::SampleFilter::Gaussian as i32,
+                        },
+                    )),
+                }),
             },
-            Spec{
+            Spec {
                 index: 1,
-                spec: Some(ImageProcessingSpec{
-                    processing_spec: Some(image_processing_spec::ProcessingSpec::CropSpec(CropSpec{
-                        x1: 100,
-                        y1: 100,
-                        x2: 50,
-                        y2: 50,
-                    })),
-                })
+                spec: Some(ImageProcessingSpec {
+                    processing_spec: Some(image_processing_spec::ProcessingSpec::CropSpec(
+                        CropSpec {
+                            x1: 100,
+                            y1: 100,
+                            x2: 50,
+                            y2: 50,
+                        },
+                    )),
+                }),
             },
-            Spec{
+            Spec {
                 index: 2,
-                spec: Some(ImageProcessingSpec{
-                    processing_spec: Some(image_processing_spec::ProcessingSpec::FlipHSpec(FlipHSpec{})),
-                })
+                spec: Some(ImageProcessingSpec {
+                    processing_spec: Some(image_processing_spec::ProcessingSpec::FlipHSpec(
+                        FlipHSpec {},
+                    )),
+                }),
             },
             // Spec { spec: Some(RotateSpec { degrees: 90 }), ..Default::default() },
         ];
@@ -89,7 +98,7 @@ mod tests {
 
         // Encode the ImageSpec to a base64 string
         let encoded_spec = String::from(&image_spec);
-        
+
         // Decode the base64 string back to an ImageSpec
         let decoded_spec = ImageSpec::try_from(encoded_spec.as_str()).unwrap();
 
