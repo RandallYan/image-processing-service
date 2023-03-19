@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+package image_processing;
+
+// An ImageSpec is an ordered list of image processing operations to be applied to an image.
+// The server will process the image according to the order specified in the spec.
+message ImageSpec {
+  repeated Spec specs = 1;
+}
+
+// Resize an image to a specific width and height using a specified resize algorithm.
+message ResizeSpec {
+  uint32 width = 1;
+  uint32 height = 2;
+
+  // The type of resize algorithm to use.
+  enum ResizeType {
+    NORMAL = 0;
+    SEAM_CARVE = 1;
+  }
+  ResizeType rtype = 3;
+
+  // The sampling filter to use for the resize algorithm.
+  enum SampleFilter {
+    UNDEFINED = 0;
+    NEAREST = 1;
+    TRIANGLE = 2;
+    CATMULL_ROM = 3;
+    GAUSSIAN = 4;
+    LANCZOS3 = 5;
+  }
+  SampleFilter filter = 4;
+}
+
+// Crop an image to a specified rectangle.
+message CropSpec {
+  uint32 x1 = 1;
+  uint32 y1 = 2;
+  uint32 x2 = 3;
+  uint32 y2 = 4;
+}
+
+// Flip an image horizontally.
+message FlipHSpec {}
+
+// Flip an image vertically.
+message FlipVSpec {}
+
+// Adjust the contrast of an image.
+message ContrastSpec { float contrast = 1; }
+
+// Apply a filter to an image.
+message FilterSpec {
+  // The type of filter to apply.
+  enum FilterType {
+    UNSPECIFIED = 0;
+    OCEANIC = 1;
+    ISLANDS = 2;
+    MARINE = 3;
+    // For more filters, see: https://docs.rs/photon-rs/0.3.1/photon_rs/filters/fn.filter.html
+  }
+  FilterType filter = 1;
+}
+
+// Apply a watermark to an image.
+message WatermarkSpec {
+  uint32 x = 1;
+  uint32 y = 2;
+}
+
+// An ImageProcessingSpec represents one type of image processing operation that can be applied to an image.
+// Only one of the fields should be populated.
+message ImageProcessingSpec {
+  oneof processing_spec {
+    ResizeSpec resize_spec = 1;
+    CropSpec crop_spec = 2;
+    FlipHSpec flip_h_spec = 3;
+    FlipVSpec flip_v_spec = 4;
+    ContrastSpec contrast_spec = 5;
+    FilterSpec filter_spec = 6;
+    WatermarkSpec watermark_spec = 7;
+  }
+}
+
+// A Spec represents one image processing operation to be applied to an image.
+message Spec {
+  ImageProcessingSpec spec = 1;
+  // The index of this spec in the overall ImageSpec list. Used for ordering.
+  int32 index = 2;
+}
