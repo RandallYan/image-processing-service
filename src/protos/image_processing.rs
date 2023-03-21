@@ -22,7 +22,17 @@ pub struct ResizeSpec {
 /// Nested message and enum types in `ResizeSpec`.
 pub mod resize_spec {
     /// The type of resize algorithm to use.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum ResizeType {
         Normal = 0,
@@ -49,7 +59,17 @@ pub mod resize_spec {
         }
     }
     /// The sampling filter to use for the resize algorithm.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum SampleFilter {
         Undefined = 0,
@@ -126,7 +146,17 @@ pub struct FilterSpec {
 /// Nested message and enum types in `FilterSpec`.
 pub mod filter_spec {
     /// The type of filter to apply.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum FilterType {
         Unspecified = 0,

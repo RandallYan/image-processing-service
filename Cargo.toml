@@ -15,5 +15,7 @@ image = "0.24"
 anyhow = "1"
 lazy_static = "1"
 
+actix-web = "4"
+
 [build-dependencies]
 prost-build = { version = "0.11" }
