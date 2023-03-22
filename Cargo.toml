@@ -17,5 +17,7 @@ lazy_static = "1"
 
 actix-web = "4"
 
+lru = "0.10.0"
+
 [build-dependencies]
 prost-build = { version = "0.11" }
